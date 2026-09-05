@@ -1,74 +1,69 @@
-# Repidot
+# Repidot Admin — status & what production needs
 
-Repidot is a location-first information portal for Indonesia: one place to
-discover loker (jobs), berita (news), wisata (tourism), kuliner (culinary),
-tempat (places), info publik (public information), event, and pendidikan
-content, organized by where it's relevant — from a single desa up through
-kecamatan, kabupaten/kota, provinsi, to all of Indonesia.
+This admin dashboard is a **working UI prototype** built on top of Repidot's
+static site (no server, no database). To make Content, Locations, and Media
+management demonstrable without a backend, it persists everything in the
+browser:
 
-## Project structure
+- `localStorage` — content overrides, location overrides, media, settings
+- `sessionStorage` — the "logged in" flag
 
-```
-index.html          Homepage — neutral discovery entry point (search,
-                     categories, location explorer, trending, highlights)
-daerah.html          Reusable location page template (?slug=)
-kategori.html        Reusable category + location page template (?cat=&loc=)
-konten.html          Reusable content detail template (?id=)
-cari.html            Smart search (keyword + category + location parsing)
-404.html             Not-found page
+That is enough to click through the full Create → Review → Publish →
+Archive workflow and see it reflected on the public site *in this browser,
+on this device*. It is **not** real infrastructure. Specifically:
 
-data/                Seed data: locations.js, categories.js, content.js
-js/                  Shared logic: repidot-data.js (the data/search/SEO
-                     layer every template reads from), repidot-icons.js,
-                     app.js (header behavior), and one page-*.js per template
-css/                 Design tokens (tokens.css) plus one stylesheet per
-                     concern (components, header, footer, home, location,
-                     detail, search)
+## Authentication (Section 10 of the Phase 6 brief)
 
-admin/               Admin dashboard (content, locations, media, users,
-                     settings) — see admin/README.md for what's a working
-                     prototype vs. what real production needs (auth,
-                     a real database, real file storage)
+`admin/login.html` accepts any email/password and simply sets a
+`sessionStorage` flag. There is no server to check credentials against, so
+this is explicitly a UI stub — never treat it as access control. A real
+deployment needs:
 
-scripts/generate-sitemap.js   Build-time sitemap generator (Node; not
-                               shipped to the browser)
-robots.txt, sitemap-*.xml     Generated crawler configuration
-```
+- A real identity provider or auth service (e.g. session cookies issued by
+  a backend, or a managed auth provider) — not a flag set by client-side JS.
+- Every admin read/write (`content.html`, `content-form.html`,
+  `locations.html`, `media.html`, `users.html`, `settings.html`) served
+  from an **authenticated API**, with the server rejecting unauthenticated
+  or unauthorized requests. The current pages fetch from
+  `window.REPIDOT_CONTENT` / `localStorage` directly, which anyone with the
+  URL can open — fine for a demo, not for admin operations on real data.
+- Role/permission checks server-side (who can publish, who can only draft),
+  not just hiding buttons in the UI.
 
-## Demo data vs. production data
+## Secrets
 
-**Everything in `data/locations.js`, `data/categories.js`, and
-`data/content.js` is seed/demo data written for development.** It covers a
-small, real-shaped slice of Central Java and Bandung (a handful of
-provinces → regencies → districts → villages, with a few sample jobs,
-news, tourism spots, culinary picks, and public-info items per category)
-so every feature — location drill-down, category filtering, search
-ranking, related content, the admin CRUD flow — has something real to
-operate on and can be exercised end to end.
+There are no API keys or credentials anywhere in this codebase, and there
+should never be — this is plain static HTML/CSS/JS shipped to a browser,
+which means anything written into it is public. When a real backend exists,
+its secrets (database URL, auth provider keys, storage bucket credentials)
+belong in that backend's environment variables, never in files under this
+`admin/` folder or any other client-side code.
 
-None of it should be mistaken for actual Repidot content. Concretely:
+## Data persistence
 
-- Company names, job postings, and salaries in `data/content.js` are
-  invented for demonstration and are not real listings.
-- "Desa Example" (`data/locations.js`) is a placeholder village, not a
-  real one — kept obviously named so it's never confused for real data.
-- Only a few provinces/regencies exist. The location hierarchy is
-  designed to scale to all of Indonesia (see the `type`/`parentId` shape
-  in `data/locations.js`), but the rest hasn't been entered.
-- "Resmi" (official source) badges only appear where `publicInfo.
-  officialSource` is explicitly set `true` in the seed data — this flag
-  should only ever be set from a genuinely verified source in production,
-  never by default.
+`admin/js/admin-store.js` layers admin edits on top of the read-only seed
+arrays (`data/content.js`, `data/locations.js`) using `localStorage`. This
+means:
 
-Moving to production means replacing these three files (or the code that
-loads them) with a real database and API, and running real locations and
-moderated content through the admin dashboard described in
-`admin/README.md` — the page templates and rendering logic don't need to
-change, since they were built against `window.REPIDOT_*` data shapes
-rather than these specific files.
+- Edits are per-browser, not shared between admins or devices.
+- Clearing browser storage clears all admin changes.
+- There is no concurrent-edit handling, audit log, or backup.
 
-## Sitemaps
+Production needs a real database (with the location hierarchy and content
+tables Phase 3/4 already modeled) behind an API, so every admin sees the
+same data and writes are durable.
 
-Run `node scripts/generate-sitemap.js [--base-url=https://example.com]`
-to regenerate `sitemap-*.xml` from current data. Re-run it whenever
-content or locations change before deploying.
+## Media
+
+`admin/media.html` stores uploads as base64 data URLs in `localStorage`,
+which is only viable for a handful of small demo images. Real media needs
+object storage (an S3-compatible bucket or similar) behind a CDN, with the
+admin UI uploading directly to that storage and saving just the resulting
+URL — not the file bytes — in the content record.
+
+## Summary
+
+Everything in `admin/` demonstrates the intended workflows, fields, and
+validation rules end-to-end. Wiring it to a real backend means replacing
+the bodies of the functions in `admin-store.js` with real API calls; the
+page code that calls them (`page-*.js`) shouldn't need to change.

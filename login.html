@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Masuk Admin — Repidot</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-login-wrap">
+  <div class="admin-login-card">
+    <div class="brand">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg></span>
+      <span class="name">Repidot</span>
+    </div>
+    <h1>Masuk ke Dashboard Admin</h1>
+    <p class="sub">Kelola konten, lokasi, dan media Repidot.</p>
+
+    <form class="admin-form" id="loginForm">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="nama@repidot.id" required />
+      </div>
+      <div class="field">
+        <label for="password">Kata sandi</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Masuk</button>
+    </form>
+
+    <div class="demo-notice">
+      <strong>Mode demo.</strong> Repidot adalah situs statis tanpa server, jadi layar ini hanya prototipe tampilan — kredensial apa pun akan diterima dan sesi hanya tersimpan di browser (sessionStorage). Ini <em>bukan</em> autentikasi sungguhan. Lihat <code>admin/README.md</code> untuk apa yang dibutuhkan agar dashboard ini aman di produksi.
+    </div>
+  </div>
+</div>
+
+<script src="js/admin-store.js"></script>
+<script src="js/page-login.js"></script>
+</body>
+</html>

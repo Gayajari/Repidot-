@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Pengguna — Admin Repidot</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+<a href="#adminContent" class="skip-link">Langsung ke konten utama</a>
+
+<div id="adminShellRoot">
+  <div id="usersRoot">
+    <h1 style="font-family:var(--font-display); font-size:var(--fs-h2); margin-bottom: var(--space-md);">Pengguna</h1>
+    <div class="admin-panel">
+      <div style="display:flex; align-items:center; gap:var(--space-sm); padding-bottom:var(--space-sm); border-bottom:1px solid var(--color-border); margin-bottom:var(--space-sm);">
+        <span class="avatar" style="width:40px;height:40px;border-radius:50%;background:var(--color-primary-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">R</span>
+        <div>
+          <div style="font-weight:600;">Redaksi Repidot (kamu)</div>
+          <div style="font-size:var(--fs-small); color:var(--color-text-muted);">Editor &middot; sesi browser ini</div>
+        </div>
+      </div>
+      <div class="admin-empty-note">
+        Manajemen pengguna sungguhan (mengundang anggota tim, peran/permission, riwayat aktivitas) memerlukan backend dengan basis data pengguna dan autentikasi sisi server — tidak bisa dibuat jujur di situs statis ini. Lihat <code>admin/README.md</code> untuk apa yang dibutuhkan.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../data/locations.js"></script>
+<script src="../data/categories.js"></script>
+<script src="../data/content.js"></script>
+<script src="../js/repidot-data.js"></script>
+<script src="../js/repidot-icons.js"></script>
+<script src="js/admin-store.js"></script>
+<script src="js/admin-shell.js"></script>
+<script>AdminShell.render("Pengguna");</script>
+</body>
+</html>
