@@ -1,0 +1,11 @@
+# Repidot — robots.txt
+# Public content (index.html, daerah.html, kategori.html, konten.html) is
+# open to crawling. Admin, auth, and query-driven search-result pages are
+# excluded — search results are also self-tagged `noindex` in their <head>
+# (see js/page-cari.js) so this rule is a backstop, not the only defense.
+
+User-agent: *
+Disallow: /admin/
+Disallow: /cari.html
+
+Sitemap: https://www.repidot.id/sitemap-index.xml

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Repidot — Temukan Informasi di Sekitarmu</title>
+<meta name="description" content="Repidot adalah portal informasi lokal: loker, berita, wisata, kuliner, dan info publik dari tingkat provinsi hingga desa." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+<a href="#mainContent" class="skip-link">Langsung ke konten utama</a>
+
+<!-- ==================== HEADER ==================== -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="index.html" class="logo" aria-label="Repidot beranda">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="12" cy="9.5" r="2.5" fill="currentColor"/>
+        </svg>
+      </span>
+      Repidot
+    </a>
+
+    <nav class="primary-nav" aria-label="Navigasi utama">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="daerah.html?slug=indonesia">Jelajah</a></li>
+        <li><a href="kategori.html?cat=loker&loc=indonesia">Loker</a></li>
+        <li><a href="kategori.html?cat=berita&loc=indonesia">Berita</a></li>
+        <li><a href="kategori.html?cat=wisata&loc=indonesia">Wisata</a></li>
+        <li><a href="kategori.html?cat=kuliner&loc=indonesia">Kuliner</a></li>
+        <li><a href="kategori.html?cat=info-publik&loc=indonesia">Info Publik</a></li>
+        <li><a href="kategori.html?cat=event&loc=indonesia">Event</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <form class="search-field header-search" action="cari.html" method="get" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <input type="search" name="q" placeholder="Cari informasi, tempat, lowongan…" aria-label="Cari" />
+      </form>
+
+      <button class="location-select" type="button" aria-haspopup="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg>
+        <span>Bandung, Jabar</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <button class="btn-icon" type="button" aria-label="Cari" id="mobileSearchToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      </button>
+
+      <button class="btn-icon menu-toggle" type="button" aria-label="Buka menu" id="menuOpen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-search-row" id="mobileSearchRow">
+  <div class="container">
+    <form class="search-field" action="cari.html" method="get" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      <input type="search" name="q" placeholder="Cari informasi, tempat, lowongan…" aria-label="Cari" />
+    </form>
+  </div>
+</div>
+
+<!-- ==================== MOBILE NAV DRAWER ==================== -->
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <div class="backdrop" id="mobileNavBackdrop"></div>
+  <div class="panel">
+    <div class="panel-top">
+      <span class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2"/></svg></span>Repidot</span>
+      <button class="btn-icon" type="button" aria-label="Tutup menu" id="menuClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <button class="location-select" style="display:flex; max-width:none;" type="button">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Bandung, Jawa Barat</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="nav-group">
+      <span class="label">Jelajahi</span>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="daerah.html?slug=indonesia">Jelajah</a></li>
+        <li><a href="kategori.html?cat=loker&loc=indonesia">Loker</a></li>
+        <li><a href="kategori.html?cat=berita&loc=indonesia">Berita</a></li>
+        <li><a href="kategori.html?cat=wisata&loc=indonesia">Wisata</a></li>
+        <li><a href="kategori.html?cat=kuliner&loc=indonesia">Kuliner</a></li>
+        <li><a href="kategori.html?cat=info-publik&loc=indonesia">Info Publik</a></li>
+        <li><a href="kategori.html?cat=event&loc=indonesia">Event</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MAIN ==================== -->
+<main id="mainContent">
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero">
+    <div class="container">
+      <h1>Temukan Informasi di Sekitarmu.</h1>
+      <p class="lead">Loker, berita, wisata, kuliner, tempat, info publik, dan berbagai informasi daerah dalam satu tempat.</p>
+
+      <form class="hero-search" role="search" action="cari.html" method="get">
+        <label class="search-field visually-hidden-label" style="flex:1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+          <input type="search" name="q" placeholder="Cari informasi, loker, wisata, tempat, atau daerah..." aria-label="Cari informasi" />
+        </label>
+        <button type="submit" class="btn btn-primary">Cari</button>
+      </form>
+
+      <a href="#location-explorer" class="hero-location-cta">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg>
+        Jelajahi berdasarkan lokasi
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 2. QUICK CATEGORIES ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header"><div><h2>Jelajahi Informasi</h2></div></div>
+
+      <div class="category-row">
+        <a class="category-tile" href="kategori.html?cat=loker&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-linecap="round"/></svg></span>
+          <span class="name">Loker</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=berita&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h13a2 2 0 0 1 2 2v13a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V4Z"/><path d="M8 8h7M8 12h7M8 16h4" stroke-linecap="round"/></svg></span>
+          <span class="name">Berita</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=wisata&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18l6-8 4 5 3-4 5 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="name">Wisata</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=kuliner&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10a7 7 0 0 1 14 0v1H5v-1Z"/><path d="M4 11h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 18v2M15 18v2" stroke-linecap="round"/></svg></span>
+          <span class="name">Kuliner</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=tempat&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+          <span class="name">Tempat</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=info-publik&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5Z" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6" stroke-linecap="round"/></svg></span>
+          <span class="name">Info Publik</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=event&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke-linecap="round"/></svg></span>
+          <span class="name">Event</span>
+        </a>
+        <a class="category-tile" href="kategori.html?cat=pendidikan&loc=indonesia">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9l10-5 10 5-10 5-10-5Z" stroke-linejoin="round"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" stroke-linecap="round"/></svg></span>
+          <span class="name">Pendidikan</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. LOCATION EXPLORER ============ -->
+  <section class="section" style="padding-block: var(--space-lg);" id="location-explorer">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Jelajahi Berdasarkan Daerah</h2>
+          <p style="color: var(--color-text-muted); margin-top:4px;">Temukan informasi dari desa hingga seluruh Indonesia.</p>
+        </div>
+      </div>
+
+      <div class="location-explorer">
+        <div>
+          <span class="label" style="display:block; margin-bottom: var(--space-xs);">Pilih wilayah</span>
+          <div class="location-select-group">
+            <select aria-label="Provinsi"><option>Provinsi</option><option>Jawa Tengah</option><option>Jawa Barat</option></select>
+            <select aria-label="Kabupaten/Kota"><option>Kabupaten/Kota</option></select>
+            <select aria-label="Kecamatan"><option>Kecamatan</option></select>
+            <select aria-label="Desa/Kelurahan"><option>Desa/Kelurahan</option></select>
+            <a class="btn btn-primary" href="daerah.html?slug=indonesia" style="display:flex; align-items:center; justify-content:center;">Jelajahi</a>
+          </div>
+        </div>
+
+        <div class="popular-regions">
+          <span class="label">Daerah populer</span>
+          <div class="region-pill-row">
+            <a class="region-pill" href="daerah.html?slug=jawa-tengah">Jawa Tengah</a>
+            <a class="region-pill" href="daerah.html?slug=jawa-barat">Jawa Barat</a>
+            <a class="region-pill" href="#">Jawa Timur</a>
+            <a class="region-pill" href="#">DKI Jakarta</a>
+            <a class="region-pill" href="#">Banten</a>
+            <a class="region-pill" href="#">DI Yogyakarta</a>
+            <a class="region-pill" href="#">Bali</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. TRENDING SEARCHES ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header"><div><h2>Sedang Banyak Dicari</h2></div></div>
+      <div class="trending-tags">
+        <a class="tag-pill" href="cari.html?q=Loker+Banyumas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Loker Banyumas</a>
+        <a class="tag-pill" href="cari.html?q=Loker+Purwokerto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Loker Purwokerto</a>
+        <a class="tag-pill" href="cari.html?q=Wisata+Dieng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Wisata Dieng</a>
+        <a class="tag-pill" href="cari.html?q=Kuliner+Banyumas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Kuliner Banyumas</a>
+        <a class="tag-pill" href="cari.html?q=Bansos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Bansos</a>
+        <a class="tag-pill" href="cari.html?q=Lowongan+Pabrik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Lowongan Pabrik</a>
+        <a class="tag-pill" href="cari.html?q=Event+Jawa+Tengah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Event Jawa Tengah</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. HIGHLIGHT ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header"><div><h2>Highlight</h2></div></div>
+      <div class="highlight-grid">
+        <a class="featured-card" href="konten.html?id=c14">
+          <div class="body">
+            <span class="badge badge-category" style="background:rgba(255,255,255,0.15); color:#fff;">Info Publik</span>
+            <h2>Jadwal pemadaman listrik bergilir wilayah Bandung Raya pekan ini</h2>
+            <div class="meta">Kota Bandung &middot; Diperbarui hari ini</div>
+          </div>
+        </a>
+        <div class="highlight-side">
+          <a class="card article-card" href="konten.html?id=c1">
+            <div class="thumb"><span class="badge badge-category">Loker</span></div>
+            <div class="body">
+              <h3>PT Sinar Abadi buka 20 posisi staff produksi di Purwokerto</h3>
+              <div class="meta">
+                <span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Purwokerto</span>
+                <span>&middot;</span><span>1 jam lalu</span>
+              </div>
+            </div>
+          </a>
+          <a class="card article-card" href="#">
+            <div class="thumb"><span class="badge badge-category">Wisata</span></div>
+            <div class="body">
+              <h3>Telaga Menjer, permata tersembunyi di dataran tinggi Dieng</h3>
+              <div class="meta">
+                <span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Wonosobo</span>
+                <span>&middot;</span><span>5 jam lalu</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. LATEST INFORMATION (+ sidebar) ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="content-layout">
+        <div>
+          <div class="section-header">
+            <div><h2>Informasi Terbaru</h2></div>
+            <a href="#" class="see-all">Lihat semua<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <div class="card-grid">
+            <a class="card article-card" href="konten.html?id=c3">
+              <div class="thumb"><span class="badge badge-category">Berita</span></div>
+              <div class="body">
+                <h3>Harga cabai di pasar tradisional Banyumas naik jelang akhir tahun</h3>
+                <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Banyumas</span><span>&middot;</span><span>30 menit lalu</span></div>
+              </div>
+            </a>
+            <a class="card article-card" href="konten.html?id=c11">
+              <div class="thumb"><span class="badge badge-category">Event</span></div>
+              <div class="body">
+                <h3>Festival Budaya Serayu digelar akhir pekan ini di alun-alun kota</h3>
+                <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Banyumas</span><span>&middot;</span><span>2 jam lalu</span></div>
+              </div>
+            </a>
+            <a class="card article-card" href="konten.html?id=c12">
+              <div class="thumb"><span class="badge badge-category">Pendidikan</span></div>
+              <div class="body">
+                <h3>Pendaftaran jalur prestasi SMA negeri dibuka mulai minggu depan</h3>
+                <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Purwokerto</span><span>&middot;</span><span>4 jam lalu</span></div>
+              </div>
+            </a>
+            <a class="card article-card" href="#">
+              <div class="thumb"><span class="badge badge-category">Kuliner</span></div>
+              <div class="body">
+                <h3>Mendoan hangat jadi buruan wisatawan di kawasan Baturraden</h3>
+                <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Baturraden</span><span>&middot;</span><span>6 jam lalu</span></div>
+              </div>
+            </a>
+            <a class="card article-card" href="konten.html?id=c9">
+              <div class="thumb"><span class="badge badge-category">Info Publik</span></div>
+              <div class="body">
+                <h3>Penyaluran BLT tahap 2 mulai dilakukan di sejumlah kecamatan</h3>
+                <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Banyumas</span><span>&middot;</span><span>8 jam lalu</span></div>
+              </div>
+            </a>
+            <a class="card article-card" href="konten.html?id=c5">
+              <div class="thumb"><span class="badge badge-category">Wisata</span></div>
+              <div class="body">
+                <h3>Curug Cipendok tawarkan udara sejuk untuk libur akhir pekan</h3>
+                <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Cilongok</span><span>&middot;</span><span>1 hari lalu</span></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <aside class="sidebar-stack">
+          <div class="sidebar-card">
+            <h4>Populer</h4>
+            <ul>
+              <li><a href="#">Loker Terbaru <span class="badge badge-category" data-tone="neutral">Baru</span></a></li>
+              <li><a href="#">Info Bansos 2026</a></li>
+              <li><a href="#">Wisata Dieng</a></li>
+              <li><a href="#">Event Akhir Pekan</a></li>
+            </ul>
+          </div>
+          <div class="sidebar-card">
+            <h4>Sedang Dicari</h4>
+            <ul>
+              <li><a href="#">Loker Purwokerto</a></li>
+              <li><a href="#">Kuliner Banyumas</a></li>
+              <li><a href="#">Lowongan Pabrik</a></li>
+            </ul>
+          </div>
+          <div class="sidebar-card">
+            <h4>Daerah Populer</h4>
+            <ul>
+              <li><a href="daerah.html?slug=jawa-tengah">Jawa Tengah</a></li>
+              <li><a href="daerah.html?slug=jawa-barat">Jawa Barat</a></li>
+              <li><a href="#">DKI Jakarta</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. LOKER ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header">
+        <div><h2>Lowongan Kerja Terbaru</h2></div>
+        <a href="kategori.html?cat=loker&loc=banyumas" class="see-all">Lihat Semua Loker<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="loker-list">
+        <a class="loker-item" href="konten.html?id=c1">
+          <span class="company-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-linecap="round"/></svg></span>
+          <div class="info">
+            <h3>Staff Produksi</h3>
+            <div class="company">PT Sinar Abadi Sejahtera</div>
+            <div class="meta-row">
+              <span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Purwokerto</span>
+              <span>SMA/SMK</span><span>Rp 2,3 &ndash; 2,8 jt</span>
+            </div>
+          </div>
+          <div class="deadline"><strong>3 hari lagi</strong>Batas lamar</div>
+        </a>
+        <a class="loker-item" href="konten.html?id=c2">
+          <span class="company-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-linecap="round"/></svg></span>
+          <div class="info">
+            <h3>Admin Gudang</h3>
+            <div class="company">CV Berkah Logistik</div>
+            <div class="meta-row">
+              <span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Banyumas</span>
+              <span>D3/S1</span>
+            </div>
+          </div>
+          <div class="deadline"><strong>6 hari lagi</strong>Batas lamar</div>
+        </a>
+        <a class="loker-item" href="#">
+          <span class="company-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-linecap="round"/></svg></span>
+          <div class="info">
+            <h3>Barista</h3>
+            <div class="company">Kopi Kita Coffee House</div>
+            <div class="meta-row">
+              <span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Purwokerto</span>
+              <span>SMA/SMK</span><span>Rp 1,8 &ndash; 2,2 jt</span>
+            </div>
+          </div>
+          <div class="deadline"><strong>Besok</strong>Batas lamar</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. TOURISM ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header">
+        <div><h2>Destinasi Menarik</h2></div>
+      </div>
+      <div class="card-grid">
+        <a class="card image-card" href="#">
+          <div class="thumb"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Wonosobo</span></div>
+          <div class="body"><h3>Telaga Menjer</h3><p>Danau alami di kaki Dieng dengan udara sejuk sepanjang hari.</p></div>
+        </a>
+        <a class="card image-card" href="konten.html?id=c6">
+          <div class="thumb"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Baturraden</span></div>
+          <div class="body"><h3>Kebun Raya Baturraden</h3><p>Taman botani di lereng Gunung Slamet, cocok untuk keluarga.</p></div>
+        </a>
+        <a class="card image-card" href="#">
+          <div class="thumb"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Cilongok</span></div>
+          <div class="body"><h3>Curug Cipendok</h3><p>Air terjun setinggi 92 meter dengan jalur trekking ringan.</p></div>
+        </a>
+      </div>
+      <div style="text-align:center; margin-top: var(--space-md);">
+        <a href="#" class="btn btn-secondary">Jelajahi Wisata</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9. CULINARY ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header"><div><h2>Kuliner di Sekitarmu</h2></div></div>
+      <div class="card-grid">
+        <a class="card image-card" href="konten.html?id=c7">
+          <div class="thumb"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Purwokerto</span></div>
+          <div class="body"><h3>Mendoan Bu Sri</h3><p>Tempe mendoan renyah khas Banyumas, legendaris sejak 1985.</p></div>
+        </a>
+        <a class="card image-card" href="konten.html?id=c8">
+          <div class="thumb"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Banyumas</span></div>
+          <div class="body"><h3>Soto Sokaraja Pak Kris</h3><p>Soto dengan sambal kacang khas, favorit warga sejak lama.</p></div>
+        </a>
+        <a class="card image-card" href="#">
+          <div class="thumb"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Purwokerto</span></div>
+          <div class="body"><h3>Kupat Glabed Mbah Warto</h3><p>Kuah kuning kental dengan tekstur khas, buka mulai sore.</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10. PUBLIC INFORMATION ============ -->
+  <section class="section" style="padding-block: var(--space-lg);">
+    <div class="container">
+      <div class="section-header"><div><h2>Info Publik</h2></div></div>
+      <div class="card-grid">
+        <a class="card info-card" href="konten.html?id=c9">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 4 8 9 10 5-2 9-5 9-10V6l-9-4Z" stroke-linejoin="round"/></svg></span>
+          <div class="body">
+            <h3>Penyaluran BLT Tahap 2 Dimulai</h3>
+            <div class="meta">
+              <span class="badge badge-category badge-resmi">Resmi</span>
+              <span style="font-size: var(--fs-caption); color: var(--color-text-faint);">Banyumas &middot; 8 jam lalu</span>
+            </div>
+          </div>
+        </a>
+        <a class="card info-card" href="konten.html?id=c10">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 4 8 9 10 5-2 9-5 9-10V6l-9-4Z" stroke-linejoin="round"/></svg></span>
+          <div class="body">
+            <h3>Jadwal Pelayanan Terpadu Kecamatan Bulan Ini</h3>
+            <div class="meta">
+              <span class="badge badge-category badge-resmi">Resmi</span>
+              <span style="font-size: var(--fs-caption); color: var(--color-text-faint);">Purwokerto &middot; 1 hari lalu</span>
+            </div>
+          </div>
+        </a>
+        <a class="card info-card" href="#">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 4 8 9 10 5-2 9-5 9-10V6l-9-4Z" stroke-linejoin="round"/></svg></span>
+          <div class="body">
+            <h3>Pendataan Ulang Penerima PKH 2026</h3>
+            <div class="meta">
+              <span class="badge badge-category badge-resmi">Resmi</span>
+              <span style="font-size: var(--fs-caption); color: var(--color-text-faint);">Banyumas &middot; 2 hari lalu</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 11. NEWS ============ -->
+  <section class="section" style="padding-block: var(--space-lg) var(--space-2xl);">
+    <div class="container">
+      <div class="section-header"><div><h2>Kabar Terbaru</h2></div></div>
+      <div class="news-layout">
+        <div>
+          <a class="card article-card" style="margin-bottom: var(--space-sm);" href="#">
+            <div class="thumb"><span class="badge badge-category">Berita</span></div>
+            <div class="body">
+              <h3>Pemkab Banyumas percepat perbaikan jalan rusak sebelum musim hujan</h3>
+              <div class="meta"><span class="badge badge-location"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>Banyumas</span><span>&middot;</span><span>1 jam lalu</span></div>
+            </div>
+          </a>
+          <div class="card-grid">
+            <a class="card article-card" href="#">
+              <div class="thumb"><span class="badge badge-category">Berita</span></div>
+              <div class="body"><h3>Harga gabah petani mulai stabil jelang panen raya</h3><div class="meta"><span>Banyumas</span></div></div>
+            </a>
+            <a class="card article-card" href="#">
+              <div class="thumb"><span class="badge badge-category">Berita</span></div>
+              <div class="body"><h3>Puskesmas tambah jam layanan vaksinasi anak</h3><div class="meta"><span>Purwokerto</span></div></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Berita Populer</h4>
+          <ul class="news-popular">
+            <li><span class="rank">1</span><h4>Harga cabai naik jelang akhir tahun</h4></li>
+            <li><span class="rank">2</span><h4>Festival Budaya Serayu digelar akhir pekan</h4></li>
+            <li><span class="rank">3</span><h4>Jalur pendaftaran SMA prestasi dibuka</h4></li>
+            <li><span class="rank">4</span><h4>Penyaluran BLT tahap 2 mulai berjalan</h4></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.1 7-12.5A7 7 0 0 0 5 9.5C5 15.9 12 22 12 22Z" stroke="currentColor" stroke-width="2"/></svg></span>
+          Repidot
+        </span>
+        <p class="tagline">Temukan Informasi di Sekitarmu.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-group">
+          <span class="label">Kategori</span>
+          <ul>
+            <li><a href="kategori.html?cat=loker&loc=indonesia">Loker</a></li>
+            <li><a href="kategori.html?cat=berita&loc=indonesia">Berita</a></li>
+            <li><a href="kategori.html?cat=wisata&loc=indonesia">Wisata</a></li>
+            <li><a href="kategori.html?cat=kuliner&loc=indonesia">Kuliner</a></li>
+            <li><a href="kategori.html?cat=info-publik&loc=indonesia">Info Publik</a></li>
+            <li><a href="kategori.html?cat=tempat&loc=indonesia">Tempat</a></li>
+            <li><a href="kategori.html?cat=event&loc=indonesia">Event</a></li>
+          </ul>
+        </div>
+        <div class="footer-group">
+          <span class="label">Daerah</span>
+          <ul>
+            <li><a href="daerah.html?slug=indonesia">Indonesia</a></li>
+            <li><a href="daerah.html?slug=jawa-tengah">Jawa Tengah</a></li>
+            <li><a href="daerah.html?slug=banyumas">Banyumas</a></li>
+            <li><a href="daerah.html?slug=tambak">Tambak</a></li>
+            <li><a href="daerah.html?slug=desa-example">Desa Example</a></li>
+          </ul>
+        </div>
+        <div class="footer-group">
+          <span class="label">Tentang</span>
+          <ul>
+            <li><a href="#">Tentang Repidot</a></li>
+            <li><a href="#">Kontak</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Repidot. Seluruh hak cipta dilindungi.</span>
+      <div class="legal-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="data/locations.js"></script>
+<script src="data/categories.js"></script>
+<script src="data/content.js"></script>
+<script src="js/repidot-data.js"></script>
+<script src="js/repidot-icons.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
