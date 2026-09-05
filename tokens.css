@@ -1,0 +1,93 @@
+/* ==========================================================================
+   REPIDOT — DESIGN TOKENS
+   Global design system variables. Change values here to re-theme the
+   entire product without touching component code.
+   ========================================================================== */
+
+:root {
+  /* ---- Color: brand ---- */
+  --color-primary-50:  #FEF3E7;
+  --color-primary-100: #FDE0C2;
+  --color-primary-300: #F5A55C;
+  --color-primary-500: #E8720C;   /* core brand orange/amber */
+  --color-primary-600: #CC6206;
+  --color-primary-700: #A34E05;
+
+  --color-secondary-500: #211F1D; /* dark charcoal / near-black */
+  --color-secondary-700: #17150F;
+
+  /* ---- Color: neutrals ---- */
+  --color-bg:         #FAF8F4;    /* warm white */
+  --color-bg-alt:      #F2EFE8;   /* secondary warm surface */
+  --color-surface:     #FFFFFF;
+  --color-text:         #1E1C19;  /* dark charcoal text */
+  --color-text-muted:   #77726A;
+  --color-text-faint:   #A39D93;
+  --color-border:       #E7E2D8;
+  --color-border-strong:#D6D0C3;
+
+  /* ---- Color: feedback (used sparingly) ---- */
+  --color-success: #2F7D4F;
+  --color-danger:  #C23B3B;
+
+  /* ---- Typography ---- */
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  --font-body:    'Inter', -apple-system, sans-serif;
+
+  --fs-display:  clamp(2rem, 1.6rem + 1.6vw, 3.25rem);
+  --fs-h1:       clamp(1.6rem, 1.35rem + 1vw, 2.25rem);
+  --fs-h2:       clamp(1.3rem, 1.15rem + 0.6vw, 1.65rem);
+  --fs-h3:       1.25rem;
+  --fs-body-lg:  1.0625rem;
+  --fs-body:     0.9375rem;
+  --fs-small:    0.8125rem;
+  --fs-caption:  0.75rem;
+
+  --lh-tight: 1.15;
+  --lh-snug:  1.35;
+  --lh-body:  1.6;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold:600;
+  --fw-bold:    700;
+
+  /* ---- Spacing scale ---- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 6rem;
+
+  /* ---- Radius ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ---- Shadow (subtle only) ---- */
+  --shadow-sm: 0 1px 2px rgba(30, 28, 25, 0.05);
+  --shadow-md: 0 4px 16px rgba(30, 28, 25, 0.07);
+  --shadow-lg: 0 12px 32px rgba(30, 28, 25, 0.10);
+
+  /* ---- Layout ---- */
+  --container-max: 1240px;
+  --container-pad: 1.25rem;
+  --header-h: 68px;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-pad: 2rem;
+    --header-h: 76px;
+  }
+}

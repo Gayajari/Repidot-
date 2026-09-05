@@ -1,0 +1,186 @@
+/* ==========================================================================
+   REPIDOT — LOCATION & CATEGORY TEMPLATES
+   Shared by daerah.html and kategori.html.
+   ========================================================================== */
+
+/* ---------- Page hero (location or category+location) ---------- */
+
+.page-hero {
+  padding-block: var(--space-lg) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+}
+.page-hero .pin {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-500);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--space-sm);
+}
+.page-hero .pin svg { width: 24px; height: 24px; }
+.page-hero h1 { font-size: var(--fs-h1); }
+.page-hero .subtitle {
+  margin-top: 4px;
+  color: var(--color-text-muted);
+  font-size: var(--fs-body);
+}
+.page-hero .lead {
+  margin-top: var(--space-xs);
+  max-width: 60ch;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Category grid (on a location page) ---------- */
+
+.category-link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xs);
+}
+@media (min-width: 640px) { .category-link-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.category-link-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+.category-link-card:hover { border-color: var(--color-primary-300); }
+.category-link-card .icon {
+  width: 38px; height: 38px; flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  display: flex; align-items: center; justify-content: center;
+}
+.category-link-card .icon svg { width: 18px; height: 18px; }
+.category-link-card .text { min-width: 0; }
+.category-link-card .text .name { font-size: var(--fs-body); font-weight: var(--fw-semibold); }
+.category-link-card .text .count { font-size: var(--fs-caption); color: var(--color-text-faint); }
+
+/* ---------- Children location grid ---------- */
+
+.child-location-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xs);
+}
+@media (min-width: 640px) { .child-location-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 960px) { .child-location-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.child-location-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: var(--fw-medium);
+}
+.child-location-card:hover { border-color: var(--color-primary-300); color: var(--color-primary-600); }
+.child-location-card svg { width: 14px; height: 14px; color: var(--color-text-faint); flex-shrink: 0; }
+
+/* ---------- Location navigation (vertical ancestor chain) ---------- */
+
+.location-nav-card ul { display: flex; flex-direction: column; gap: 2px; }
+.location-nav-card li a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-2xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+}
+.location-nav-card li a:hover { background: var(--color-surface); }
+.location-nav-card li.is-current a {
+  background: var(--color-surface);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary-600);
+}
+
+/* ---------- Filters bar (UI only, non-functional yet) ---------- */
+
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding-inline: var(--space-xs);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--color-text);
+}
+.filter-chip[aria-pressed="true"] {
+  background: var(--color-secondary-500);
+  border-color: var(--color-secondary-500);
+  color: #fff;
+}
+.filter-chip svg { width: 13px; height: 13px; }
+
+/* ---------- Related information sidebar list ---------- */
+
+.related-list li a {
+  display: flex; align-items: center; gap: var(--space-2xs);
+}
+.related-list li a .icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-alt);
+  color: var(--color-text-muted);
+  display: flex; align-items: center; justify-content: center;
+}
+.related-list li a .icon svg { width: 14px; height: 14px; }
+
+.error-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+  padding-block: var(--space-2xl);
+  max-width: 52ch;
+  margin-inline: auto;
+}
+.error-hero .code {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: clamp(3rem, 2.5rem + 2vw, 4.5rem);
+  color: var(--color-primary-500);
+  line-height: 1;
+}
+.error-hero .icon-wrap {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  color: var(--color-text-faint);
+  display: flex; align-items: center; justify-content: center;
+}
+.error-hero .icon-wrap svg { width: 28px; height: 28px; }
+.error-hero p { color: var(--color-text-muted); }
+.error-hero .actions { display: flex; flex-wrap: wrap; gap: var(--space-2xs); justify-content: center; margin-top: var(--space-2xs); }
+
+/* ---------- Empty state ancestor links ---------- */
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  justify-content: center;
+  margin-top: var(--space-xs);
+}
